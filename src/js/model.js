@@ -1,4 +1,10 @@
-import { API_URL, PER_PAGE, API_KEY } from './config.js';
+import {
+  API_URL,
+  PER_PAGE,
+  API_KEY,
+  SPOONACULAR_API,
+  SPOONACULAR_API_KEY,
+} from './config.js';
 import { getJSON, sendJSON } from './helper.js';
 
 export const state = {
@@ -26,6 +32,20 @@ const createRecipeObject = function (recipe) {
   };
 };
 
+const getCalorieEstimate = async function (title) {
+  try {
+    const data = await getJSON(
+      `${SPOONACULAR_API}guessNutrition?apiKey=${SPOONACULAR_API_KEY}&title=${title}`
+    );
+    if (data.status === 'error') return 0;
+    const { calories } = data;
+    return calories.value;
+  } catch (err) {
+    //console.log(`${err.message} 🔴🔴🔴🔴`);
+    throw err;
+  }
+};
+
 export const loadRecipe = async function (id) {
   try {
     const { recipe } = await getJSON(`${API_URL}${id}?key=${API_KEY}`);
@@ -35,6 +55,8 @@ export const loadRecipe = async function (id) {
     } else {
       state.recipe.bookmarked = false;
     }
+    state.recipe.calories = await getCalorieEstimate(recipe.title);
+    console.log(state.recipe);
     //console.log(state.recipe);
   } catch (err) {
     //console.log(`${err.message} 🔴🔴🔴🔴`);

@@ -28,6 +28,15 @@ class RecipeView extends View {
     </div>
     <div class="recipe__info">
       <svg class="recipe__info-icon">
+        <use href="${icons}#icon-cals"></use>
+      </svg>
+    <span class="recipe__info-data recipe__info-data--people">${
+      this._data.calories
+    }</span>
+    <span class="recipe__info-text">cals</span>
+    </div>
+    <div class="recipe__info">
+      <svg class="recipe__info-icon">
         <use href="${icons}#icon-users"></use>
       </svg>
       <span class="recipe__info-data recipe__info-data--people">${
