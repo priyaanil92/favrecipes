@@ -26,15 +26,18 @@ class RecipeView extends View {
       }</span>
       <span class="recipe__info-text">minutes</span>
     </div>
-    <div class="recipe__info">
-      <svg class="recipe__info-icon">
-        <use href="${icons}#icon-cals"></use>
-      </svg>
-    <span class="recipe__info-data recipe__info-data--people">${
-      this._data.calories
-    }</span>
-    <span class="recipe__info-text">cals</span>
-    </div>
+    ${
+      this._data.nutrition
+        ? `<div class="recipe__info">
+    <svg class="recipe__info-icon">
+      <use href="${icons}#icon-cals"></use>
+    </svg>
+  <span class="recipe__info-data recipe__info-data--people">${this._data.nutrition.calories?.value}</span>
+  <span class="recipe__info-text">cals</span>
+  </div>`
+        : ''
+    }
+    
     <div class="recipe__info">
       <svg class="recipe__info-icon">
         <use href="${icons}#icon-users"></use>
@@ -81,6 +84,26 @@ class RecipeView extends View {
     ${this._data.ingredients.map(this._generateIngredient).join('')}
     </ul>
   </div>
+    ${
+      this._data.nutrition
+        ? `<div class="recipe__macros"> 
+    <h2 class="heading--2">Macros</h2>
+    <div class="recipe__macros-info">
+    <span class="recipe__info-data recipe__info-data--minutes">${this._data.nutrition?.carbs?.value}${this._data.nutrition.carbs?.unit}</span>
+    <span class="recipe__info-text">carbs</span>
+    </div>
+    <div class="recipe__macros-info">
+    <span class="recipe__info-data recipe__info-data--minutes">${this._data.nutrition?.fat?.value}${this._data.nutrition.fat?.unit}</span>
+    <span class="recipe__info-text">fat</span>
+    </div>
+    <div class="recipe__macros-info">
+    <span class="recipe__info-data recipe__info-data--minutes">${this._data.nutrition?.protein?.value}${this._data.nutrition.protein?.unit}</span>
+    <span class="recipe__info-text">protein</span>
+    </div>
+  </div>`
+        : ''
+    }
+  
 
   <div class="recipe__directions">
     <h2 class="heading--2">How to cook it</h2>

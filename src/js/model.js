@@ -37,9 +37,9 @@ const getCalorieEstimate = async function (title) {
     const data = await getJSON(
       `${SPOONACULAR_API}guessNutrition?apiKey=${SPOONACULAR_API_KEY}&title=${title}`
     );
-    if (data.status === 'error') return 0;
-    const { calories } = data;
-    return calories.value;
+    //console.log(data);
+    if (data.status === 'error') return false;
+    return data;
   } catch (err) {
     //console.log(`${err.message} 🔴🔴🔴🔴`);
     throw err;
@@ -55,9 +55,7 @@ export const loadRecipe = async function (id) {
     } else {
       state.recipe.bookmarked = false;
     }
-    state.recipe.calories = await getCalorieEstimate(recipe.title);
-    console.log(state.recipe);
-    //console.log(state.recipe);
+    state.recipe.nutrition = await getCalorieEstimate(recipe.title);
   } catch (err) {
     //console.log(`${err.message} 🔴🔴🔴🔴`);
     throw err;

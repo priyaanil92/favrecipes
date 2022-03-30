@@ -12,20 +12,28 @@ class PaginationView extends View {
 
     // Page 1 and there are other pages
     if (curPage === 1 && numPages > 1) {
-      return this._generateNextMarkup(curPage);
-    }
-    // last page
-    if (curPage === numPages && numPages > 1) {
-      return this._generatePrevMarkup(curPage);
-    }
-    //Other page
-    if (curPage < numPages) {
-      return `${this._generatePrevMarkup(curPage)}${this._generateNextMarkup(
+      return `${this._generatePagesMarkup(numPages)}${this._generateNextMarkup(
         curPage
       )}`;
     }
+    // last page
+    if (curPage === numPages && numPages > 1) {
+      return `${this._generatePagesMarkup(numPages)}${this._generatePrevMarkup(
+        curPage
+      )}`;
+    }
+    //Other page
+    if (curPage < numPages) {
+      return `${this._generatePagesMarkup(numPages)}${this._generatePrevMarkup(
+        curPage
+      )}${this._generateNextMarkup(curPage)}`;
+    }
     // Page 1 and there are no other pages
     return ``;
+  }
+
+  _generatePagesMarkup(numPages) {
+    return `<div class="span__inline"><span>-${numPages}-</span></div>`;
   }
 
   _generateNextMarkup(curPage) {

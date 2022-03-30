@@ -179,6 +179,19 @@
   }
 }
 
+.span__inline {
+  color: $color-primary;
+  font-size: 1.3rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  background-color: $color-grey-light-1;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10rem;
+  margin: 0 3rem;
+}
+
 @keyframes rotate {
   0% {
     transform: rotate(0);
